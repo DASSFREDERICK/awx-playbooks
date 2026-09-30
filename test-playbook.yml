@@ -1,4 +1,3 @@
----
 - name: Test Local Playbook Execution
   hosts: localhost
   connection: local
@@ -8,11 +7,10 @@
       ansible.builtin.debug:
         msg: "Hello from AWX! The target system hostname is {{ ansible_hostname }}"
 
-    - name: Run a simple shell command
-      ansible.builtin.shell: uptime
-      register: uptime_result
+    - name: Run a simple safe command
+      ansible.builtin.command: uname -a
+      register: uname_result
 
-    - name: Show uptime output
+    - name: Show system architecture output
       ansible.builtin.debug:
-        msg: "{{ uptime_result.stdout }}"
-
+        msg: "{{ uname_result.stdout }}"
