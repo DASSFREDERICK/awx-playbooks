@@ -1,0 +1,16 @@
+- name: Test Local Playbook Execution
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+  tasks:
+    - name: Display a greeting and system info
+      ansible.builtin.debug:
+        msg: "Hello from AWX! The target system hostname is {{ ansible_hostname }}"
+
+    - name: Run a simple safe command
+      ansible.builtin.command: uname -a
+      register: uname_result
+
+    - name: Show system architecture output
+      ansible.builtin.debug:
+        msg: "{{ uname_result.stdout }}"
